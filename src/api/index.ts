@@ -1,3 +1,3 @@
-import * as todos from './todos';
+import * as posts from './posts';
 
-export const api = { todos } as const;
+export const api = { posts } as const;

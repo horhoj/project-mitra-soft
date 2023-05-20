@@ -9,3 +9,8 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export interface SagaWorkerAction<T, P> {
+  type: T;
+  payload: P;
+}
