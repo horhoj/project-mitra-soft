@@ -8,6 +8,7 @@ NODEJS 18
 запуск
 
 yarn
+
 yarn start
 
 
