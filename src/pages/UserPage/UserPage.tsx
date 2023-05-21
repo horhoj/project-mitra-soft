@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { FeaturePostList } from '@components/FeaturePostList';
 // import Card from 'react-bootstrap/esm/Card';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { postListData } from '@store/postListData';
+import { data } from '@store/data';
 import Card from 'react-bootstrap/esm/Card';
 import { Button } from 'react-bootstrap';
 import { appSlice } from '@store/app';
@@ -15,19 +15,17 @@ interface UserPageProps {}
 export const UserPage: FC<UserPageProps> = () => {
   const { id } = useParams<{ id: string }>();
 
-  const userRequest = useAppSelector(postListData.selectors.getUserRequest);
+  const userRequest = useAppSelector(data.selectors.getUserRequest);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (id) {
       dispatch(
-        postListData.actionCreators.fetchUserWorkerActionCreator(
-          Number.parseInt(id),
-        ),
+        data.actionCreators.fetchUserWorkerActionCreator(Number.parseInt(id)),
       );
     }
     return () => {
-      dispatch(postListData.actions.reset());
+      dispatch(data.actions.reset());
     };
   }, []);
 

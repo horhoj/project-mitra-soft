@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { postListData } from '@store/postListData';
+import { data } from '@store/data';
 import { PostItem } from '@components/FeaturePostList/PostItem';
 import styles from './FeaturePostList.module.scss';
 
@@ -10,16 +10,12 @@ interface FeaturePostListProps {
 
 export const FeaturePostList: FC<FeaturePostListProps> = ({ userId }) => {
   const dispatch = useAppDispatch();
-  const postListRequest = useAppSelector(
-    postListData.selectors.getPostListRequest,
-  );
+  const postListRequest = useAppSelector(data.selectors.getPostListRequest);
 
   useEffect(() => {
-    dispatch(
-      postListData.actionCreators.fetchPostListWorkerActionCreator(userId),
-    );
+    dispatch(data.actionCreators.fetchPostListWorkerActionCreator(userId));
     return () => {
-      dispatch(postListData.actions.reset());
+      dispatch(data.actions.reset());
     };
   }, []);
 

@@ -39,13 +39,13 @@ export const Header: FC<HeaderProps> = () => {
             href={getRoutePath('posts')}
             onClick={goTo(getRoutePath('posts'))}
           >
-            Posts
+            СПИСОК ПОСТОВ
           </Nav.Link>
           <Nav.Link
             href={getRoutePath('about')}
             onClick={goTo(getRoutePath('about'))}
           >
-            About
+            СВЕДЕНИЯ О РАЗРАБОТЧИКЕ
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

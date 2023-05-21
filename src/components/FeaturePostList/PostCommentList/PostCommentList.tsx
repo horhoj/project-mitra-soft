@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { postListData } from '@store/postListData';
+import { data } from '@store/data';
 import Card from 'react-bootstrap/esm/Card';
 import styles from './PostCommentList.module.scss';
 
@@ -12,16 +12,14 @@ export const PostCommentList: FC<PostCommentListProps> = ({ postId }) => {
   const dispatch = useAppDispatch();
 
   const postCommentList = useAppSelector(
-    postListData.selectors.getPostCommentList(postId),
+    data.selectors.getPostCommentList(postId),
   );
 
   useEffect(() => {
-    dispatch(
-      postListData.actionCreators.fetchCommentListWorkerActionCreator(postId),
-    );
+    dispatch(data.actionCreators.fetchCommentListWorkerActionCreator(postId));
 
     return () => {
-      dispatch(postListData.actions.clearPostCommentList({ postId }));
+      dispatch(data.actions.clearPostCommentList({ postId }));
     };
   }, []);
 

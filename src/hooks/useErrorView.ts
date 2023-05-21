@@ -1,15 +1,13 @@
 import { useAppSelector } from '@store/hooks';
-import { postListData } from '@store/postListData';
+import { data } from '@store/data';
 import { useEffect } from 'react';
 
 export const useErrorView = () => {
-  const postListRequest = useAppSelector(
-    postListData.selectors.getPostListRequest,
-  );
-  const userRequest = useAppSelector(postListData.selectors.getUserRequest);
+  const postListRequest = useAppSelector(data.selectors.getPostListRequest);
+  const userRequest = useAppSelector(data.selectors.getUserRequest);
 
   const postCommentRequest = useAppSelector(
-    postListData.selectors.getPostCommentRequest,
+    data.selectors.getPostCommentRequest,
   );
 
   useEffect(() => {

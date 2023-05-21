@@ -1,13 +1,11 @@
 import React, { FC } from 'react';
 import { Portal } from '@components/Portal';
 import { useAppSelector } from '@store/hooks';
-import { postListData } from '@store/postListData';
+import { data } from '@store/data';
 import styles from './Spinner.module.scss';
 
 export const Spinner: FC = () => {
-  const postsPageDataIsLoading = useAppSelector(
-    postListData.selectors.isLoading,
-  );
+  const postsPageDataIsLoading = useAppSelector(data.selectors.isLoading);
 
   const isLoading = postsPageDataIsLoading;
 

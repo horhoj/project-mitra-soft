@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware, { SagaIterator } from 'redux-saga';
-import { postListData } from '@store/postListData';
+import { data } from '@store/data';
 import { AllEffect, all } from 'redux-saga/effects';
 import { appSlice } from './app';
 
@@ -13,13 +13,13 @@ export const store = configureStore({
   devTools: true,
   reducer: {
     app: appSlice.reducer,
-    postsPageData: postListData.reducer,
+    postsPageData: data.reducer,
   },
   middleware: [...middlewares],
 });
 
 export function* rootSaga(): Generator<AllEffect<SagaIterator<any>>> {
-  yield all([postListData.watcher()]);
+  yield all([data.watcher()]);
 }
 
 sagaMiddleware.run(rootSaga);

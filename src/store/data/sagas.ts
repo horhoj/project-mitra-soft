@@ -5,9 +5,9 @@ import { api } from '@api/index';
 import { actions } from './slice';
 
 export enum PostsPageDataWorkerType {
-  FETCH_POST_LIST = 'postListData/fetchPostList',
-  FETCH_COMMENT_LIST = 'postListData/fetchCommentList',
-  FETCH_USER = 'postListData/fetchUser',
+  FETCH_POST_LIST = 'data/fetchPostList',
+  FETCH_COMMENT_LIST = 'data/fetchCommentList',
+  FETCH_USER = 'data/fetchUser',
 }
 
 export function* postsPageDataWatcher(): SagaIterator {
@@ -63,7 +63,6 @@ const fetchCommentListWorkerActionCreator = (
 
 export function* fetchCommentListWorker(action: FetchCommentListWorkerAction) {
   try {
-    // yield call(console.log, action.payload);
     yield put(actions.setCommentListRequest({ isLoading: true, error: null }));
     const response: Awaited<ReturnType<typeof api.comments.fetchCommentList>> =
       yield call(api.comments.fetchCommentList, action.payload.postId);
@@ -92,7 +91,6 @@ const fetchUserWorkerActionCreator = (
 });
 
 export function* fetchUserWorker(action: FetchUserWorkerAction) {
-  // yield call(console.log, action.payload);
   try {
     yield put(actions.setUserData({ isLoading: true, error: null }));
 

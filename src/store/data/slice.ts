@@ -50,7 +50,6 @@ export const { actions, reducer } = createSlice({
       state,
       action: PayloadAction<{ postId: number }>,
     ) => {
-      // console.log(action.payload);
       if (state.postCommentRequest.data) {
         delete state.postCommentRequest.data[action.payload.postId];
       }
