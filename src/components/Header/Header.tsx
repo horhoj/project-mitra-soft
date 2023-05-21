@@ -1,8 +1,8 @@
 import { FC, MouseEvent } from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Card, Nav, Navbar } from 'react-bootstrap';
 import { getRoutePath } from '@router/helpers';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router';
+import avatarImg from '@assets/avatar.png';
 import styles from './Header.module.scss';
 
 interface HeaderProps {}
@@ -21,10 +21,19 @@ export const Header: FC<HeaderProps> = () => {
       bg="dark"
       variant="dark"
       className={styles.wrap}
+      fixed={'top'}
     >
       <Navbar.Brand>Mitra-Soft</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
+      <Navbar.Collapse
+        id="responsive-navbar-nav"
+        className={styles.NavbarCollapse}
+      >
+        <Card className={styles.avatar}>
+          <Card.Img src={avatarImg} />
+          <Card.Text>Тестовый пользователь</Card.Text>
+          <Card.Link>user@mail.ru</Card.Link>
+        </Card>
         <Nav className="mr-auto">
           <Nav.Link
             href={getRoutePath('posts')}

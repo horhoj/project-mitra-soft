@@ -20,9 +20,8 @@ export const PostItem: FC<PostItemProps> = ({ post }) => {
         <Card.Img src={avatarImg} className={styles.avatar} />
       </Link>
       <Card.Body>
-        <Card.Title>
-          {post.title} (postId={post.id})
-        </Card.Title>
+        <Card.Text>(postId={post.id})</Card.Text>
+        <Card.Title>{post.title}</Card.Title>
         <Card.Text>{post.body}</Card.Text>
 
         <Card.Text>

@@ -31,6 +31,9 @@ export const PostCommentList: FC<PostCommentListProps> = ({ postId }) => {
         postCommentList.map((comment) => (
           <Card key={comment.id}>
             <Card.Body>
+              <Card.Text>
+                (postId={comment.postId}, commentId={comment.id})
+              </Card.Text>
               <Card.Link>{comment.email}</Card.Link>
               <Card.Text>{comment.body}</Card.Text>
             </Card.Body>
