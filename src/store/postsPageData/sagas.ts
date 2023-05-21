@@ -1,8 +1,9 @@
 import { SagaIterator } from 'redux-saga';
-import { call, takeLatest, put } from 'redux-saga/effects';
+import { call, takeLatest, put, select } from 'redux-saga/effects';
 import { SagaWorkerAction } from '@store/types';
 import { api } from '@api/index';
 import { actions } from './slice';
+import * as selectors from './selectors';
 
 export enum PostsPageDataWorkerType {
   FETCH_POST_LIST = 'postsPageData/fetchPostList',
@@ -27,6 +28,12 @@ const fetchPostListWorkerActionCreator = (): FetchPostListWorkerAction => ({
 
 export function* fetchPostListWorker(): SagaIterator {
   try {
+    const postListRequest: ReturnType<typeof selectors.getPostListRequest> =
+      yield select(selectors.getPostListRequest);
+    if (postListRequest.data && postListRequest.error === null) {
+      return;
+    }
+
     yield put(actions.setPostListRequest({ isLoading: true }));
     const response: Awaited<ReturnType<typeof api.posts.fetchPostList>> =
       yield call(api.posts.fetchPostList);
