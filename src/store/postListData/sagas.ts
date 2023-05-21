@@ -38,7 +38,7 @@ export function* fetchPostListWorker(
   action: FetchPostListWorkerAction,
 ): SagaIterator {
   try {
-    yield put(actions.setPostListRequest({ isLoading: true }));
+    yield put(actions.setPostListRequest({ isLoading: true, error: null }));
     const response: Awaited<ReturnType<typeof api.posts.fetchPostList>> =
       yield call(api.posts.fetchPostList, action.payload.userId);
     yield put(actions.setPostListRequest({ data: response }));
@@ -64,7 +64,7 @@ const fetchCommentListWorkerActionCreator = (
 export function* fetchCommentListWorker(action: FetchCommentListWorkerAction) {
   try {
     // yield call(console.log, action.payload);
-    yield put(actions.setCommentListRequest({ isLoading: true }));
+    yield put(actions.setCommentListRequest({ isLoading: true, error: null }));
     const response: Awaited<ReturnType<typeof api.comments.fetchCommentList>> =
       yield call(api.comments.fetchCommentList, action.payload.postId);
     yield put(
@@ -94,7 +94,7 @@ const fetchUserWorkerActionCreator = (
 export function* fetchUserWorker(action: FetchUserWorkerAction) {
   // yield call(console.log, action.payload);
   try {
-    yield put(actions.setUserData({ isLoading: true }));
+    yield put(actions.setUserData({ isLoading: true, error: null }));
 
     const response: Awaited<ReturnType<typeof api.users.fetchUser>> =
       yield call(api.users.fetchUser, action.payload.userId);
