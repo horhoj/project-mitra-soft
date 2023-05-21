@@ -5,13 +5,18 @@ import { api } from '@api/index';
 import { actions } from './slice';
 
 export enum PostsPageDataWorkerType {
-  FETCH_POST_LIST = 'postsPageData/fetchPostList',
+  FETCH_POST_LIST = 'postListData/fetchPostList',
+  FETCH_COMMENT_LIST = 'postListData/fetchCommentList',
 }
 
 export function* postsPageDataWatcher(): SagaIterator {
   yield takeLatest(
     PostsPageDataWorkerType.FETCH_POST_LIST,
     fetchPostListWorker,
+  );
+  yield takeLatest(
+    PostsPageDataWorkerType.FETCH_COMMENT_LIST,
+    fetchCommentListWorker,
   );
 }
 
@@ -42,4 +47,37 @@ export function* fetchPostListWorker(
   }
 }
 
-export const postsPageDataActionCreators = { fetchPostListWorkerActionCreator };
+type FetchCommentListWorkerAction = SagaWorkerAction<
+  PostsPageDataWorkerType.FETCH_COMMENT_LIST,
+  { postId: number }
+>;
+
+const fetchCommentListWorkerActionCreator = (
+  postId: number,
+): FetchCommentListWorkerAction => ({
+  type: PostsPageDataWorkerType.FETCH_COMMENT_LIST,
+  payload: { postId },
+});
+
+export function* fetchCommentListWorker(action: FetchCommentListWorkerAction) {
+  try {
+    // yield call(console.log, action.payload);
+    yield put(actions.setCommentListRequest({ isLoading: true }));
+    const response: Awaited<ReturnType<typeof api.comments.fetchCommentList>> =
+      yield call(api.comments.fetchCommentList, action.payload.postId);
+    yield put(
+      actions.setCommentListRequest({
+        data: { [action.payload.postId]: response },
+      }),
+    );
+  } catch (e) {
+    yield put(actions.setCommentListRequest({ error: (e as Error).message }));
+  } finally {
+    yield put(actions.setCommentListRequest({ isLoading: false }));
+  }
+}
+
+export const postsPageDataActionCreators = {
+  fetchPostListWorkerActionCreator,
+  fetchCommentListWorkerActionCreator,
+};
