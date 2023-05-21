@@ -3,24 +3,25 @@ import {
   makeRequestSliceStateProperty,
   RequestSliceStateProperty,
 } from '@store/helpers';
-import { PostItem } from '@interface/Posts';
+import { Post } from '@interface/Posts';
 import { SLICE_NAME } from './types';
 
 interface InitialState {
-  postListRequest: RequestSliceStateProperty<PostItem[]>;
+  postListRequest: RequestSliceStateProperty<Post[]>;
 }
 
 const initialState: InitialState = {
-  postListRequest: makeRequestSliceStateProperty<PostItem[]>(),
+  postListRequest: makeRequestSliceStateProperty<Post[]>(),
 };
 
 export const { actions, reducer } = createSlice({
   name: SLICE_NAME,
   initialState,
   reducers: {
+    reset: () => initialState,
     setPostListRequest: (
       state,
-      action: PayloadAction<Partial<RequestSliceStateProperty<PostItem[]>>>,
+      action: PayloadAction<Partial<RequestSliceStateProperty<Post[]>>>,
     ) => {
       state.postListRequest = { ...state.postListRequest, ...action.payload };
     },

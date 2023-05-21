@@ -1,9 +1,8 @@
 import { SagaIterator } from 'redux-saga';
-import { call, takeLatest, put, select } from 'redux-saga/effects';
+import { call, takeLatest, put } from 'redux-saga/effects';
 import { SagaWorkerAction } from '@store/types';
 import { api } from '@api/index';
 import { actions } from './slice';
-import * as selectors from './selectors';
 
 export enum PostsPageDataWorkerType {
   FETCH_POST_LIST = 'postsPageData/fetchPostList',
@@ -18,25 +17,23 @@ export function* postsPageDataWatcher(): SagaIterator {
 
 type FetchPostListWorkerAction = SagaWorkerAction<
   PostsPageDataWorkerType.FETCH_POST_LIST,
-  null
+  { userId: number | null }
 >;
 
-const fetchPostListWorkerActionCreator = (): FetchPostListWorkerAction => ({
+const fetchPostListWorkerActionCreator = (
+  userId: number | null,
+): FetchPostListWorkerAction => ({
   type: PostsPageDataWorkerType.FETCH_POST_LIST,
-  payload: null,
+  payload: { userId },
 });
 
-export function* fetchPostListWorker(): SagaIterator {
+export function* fetchPostListWorker(
+  action: FetchPostListWorkerAction,
+): SagaIterator {
   try {
-    const postListRequest: ReturnType<typeof selectors.getPostListRequest> =
-      yield select(selectors.getPostListRequest);
-    if (postListRequest.data && postListRequest.error === null) {
-      return;
-    }
-
     yield put(actions.setPostListRequest({ isLoading: true }));
     const response: Awaited<ReturnType<typeof api.posts.fetchPostList>> =
-      yield call(api.posts.fetchPostList);
+      yield call(api.posts.fetchPostList, action.payload.userId);
     yield put(actions.setPostListRequest({ data: response }));
   } catch (e) {
     yield put(actions.setPostListRequest({ error: (e as Error).message }));

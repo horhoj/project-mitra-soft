@@ -1,12 +1,12 @@
 import { AxiosRequestConfig } from 'axios';
 import { requestFromApi } from '@api/apiTransport';
-import { PostItem } from '@interface/Posts';
+import { Post } from '@interface/Posts';
 
-export const fetchPostList = async () => {
+export const fetchPostList = async (userId: number | null) => {
   const requestConfig: AxiosRequestConfig = {
-    url: '/posts',
+    url: userId === null ? '/posts' : `/users/${userId}/posts`,
     method: 'get',
   };
 
-  return requestFromApi<PostItem[]>(requestConfig);
+  return requestFromApi<Post[]>(requestConfig);
 };

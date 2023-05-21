@@ -1,0 +1,15 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.avatar {
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+}
+
+.link {
+  width: fit-content;
+}

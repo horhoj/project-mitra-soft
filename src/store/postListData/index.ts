@@ -6,7 +6,7 @@ import {
 
 import * as selectors from './selectors';
 
-export const postsPageData = {
+export const postListData = {
   actions,
   reducer,
   watcher,
