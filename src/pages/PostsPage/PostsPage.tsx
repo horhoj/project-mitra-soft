@@ -7,7 +7,7 @@ interface PostsPageProps {}
 export const PostsPage: FC<PostsPageProps> = () => {
   return (
     <div className={styles.wrap}>
-      <div>PostsPage</div>
+      <h2>Список всех постов</h2>
       <FeaturePostList userId={null} />
     </div>
   );

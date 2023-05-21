@@ -5,6 +5,7 @@ import avatarImg from '@assets/avatar.png';
 import { Button } from 'react-bootstrap';
 import { Post } from '@interface/Posts';
 import { PostCommentList } from '@components/FeaturePostList/PostCommentList';
+import { getRoutePath } from '@router/helpers';
 import styles from './PostItem.module.scss';
 
 interface PostItemProps {
@@ -16,11 +17,16 @@ export const PostItem: FC<PostItemProps> = ({ post }) => {
 
   return (
     <Card>
-      <Link to={`/xxxxx${post.userId}`} className={styles.link}>
+      <Link
+        to={getRoutePath('userPage', post.userId.toString())}
+        className={styles.link}
+      >
         <Card.Img src={avatarImg} className={styles.avatar} />
       </Link>
       <Card.Body>
-        <Card.Text>(postId={post.id})</Card.Text>
+        <Card.Text>
+          (postId={post.id}, userId={post.userId})
+        </Card.Text>
         <Card.Title>{post.title}</Card.Title>
         <Card.Text>{post.body}</Card.Text>
 

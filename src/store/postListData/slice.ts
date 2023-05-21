@@ -5,17 +5,20 @@ import {
 } from '@store/helpers';
 import { Post } from '@interface/Posts';
 import { Comment } from '@interface/Comment';
+import { User } from '@interface/User';
 import { SLICE_NAME } from './types';
 
 interface InitialState {
   postListRequest: RequestSliceStateProperty<Post[]>;
   postCommentRequest: RequestSliceStateProperty<Record<number, Comment[]>>;
+  userRequest: RequestSliceStateProperty<User>;
 }
 
 const initialState: InitialState = {
   postListRequest: makeRequestSliceStateProperty<Post[]>(),
   postCommentRequest:
     makeRequestSliceStateProperty<Record<number, Comment[]>>(),
+  userRequest: makeRequestSliceStateProperty<User>(),
 };
 
 export const { actions, reducer } = createSlice({
@@ -29,6 +32,7 @@ export const { actions, reducer } = createSlice({
     ) => {
       state.postListRequest = { ...state.postListRequest, ...action.payload };
     },
+
     setCommentListRequest: (
       state,
       action: PayloadAction<
@@ -41,6 +45,7 @@ export const { actions, reducer } = createSlice({
         data: { ...state.postCommentRequest.data, ...action.payload.data },
       };
     },
+
     clearPostCommentList: (
       state,
       action: PayloadAction<{ postId: number }>,
@@ -49,6 +54,13 @@ export const { actions, reducer } = createSlice({
       if (state.postCommentRequest.data) {
         delete state.postCommentRequest.data[action.payload.postId];
       }
+    },
+
+    setUserData: (
+      state,
+      action: PayloadAction<Partial<RequestSliceStateProperty<User>>>,
+    ) => {
+      state.userRequest = { ...state.userRequest, ...action.payload };
     },
   },
 });

@@ -34,7 +34,7 @@ export const Header: FC<HeaderProps> = () => {
           <Card.Text>Тестовый пользователь</Card.Text>
           <Card.Link>user@mail.ru</Card.Link>
         </Card>
-        <Nav className="mr-auto">
+        <Nav className={`mr-auto ${styles.nav}`}>
           <Nav.Link
             href={getRoutePath('posts')}
             onClick={goTo(getRoutePath('posts'))}
