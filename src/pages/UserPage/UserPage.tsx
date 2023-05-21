@@ -45,8 +45,8 @@ export const UserPage: FC<UserPageProps> = () => {
           <Card.Header>userId: {userRequest.data.id}</Card.Header>
           <Card.Header>Имя: {userRequest.data.name}</Card.Header>
           <Card.Header>Ник: {userRequest.data.username}</Card.Header>
-          <Card.Header>Ник: {userRequest.data.email}</Card.Header>
-          <Card.Header>Ник: {userRequest.data.phone}</Card.Header>
+          <Card.Header>Почта: {userRequest.data.email}</Card.Header>
+          <Card.Header>Телефон: {userRequest.data.phone}</Card.Header>
         </Card>
       )}
       <h2>Посты пользователя</h2>
